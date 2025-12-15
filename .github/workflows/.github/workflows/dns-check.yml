@@ -1,0 +1,32 @@
+name: DNS check
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "Select domain"
+        required: true
+        type: choice
+        options:
+          - example.com
+          - cloudflare.com
+          - wikipedia.org
+        default: example.com
+
+jobs:
+  dns:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve DNS
+        run: |
+          DOMAIN="${{ inputs.domain }}"
+          echo "Domain: $DOMAIN"
+
+          echo "A:"
+          dig +short "$DOMAIN" A
+
+          echo "AAAA:"
+          dig +short "$DOMAIN" AAAA || true
+
+          echo "NS:"
+          dig +short "$DOMAIN" NS
