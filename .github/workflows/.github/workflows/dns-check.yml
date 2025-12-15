@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-          - example.com
+          - google.com
           - cloudflare.com
           - wikipedia.org
-        default: example.com
+        default: google.com
 
 jobs:
   dns:
